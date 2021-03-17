@@ -59,20 +59,24 @@ async function getFilteredData() {
   const input = document.getElementById("userinput");
   const results = document.getElementById("results");
 
+  const filterItems = (users, userInput, options = option.value) => {
+    return users.filter(
+      (el) =>
+        el[options]
+          .toLowerCase()
+          .trim()
+          .indexOf(userInput.toLowerCase().trim()) !== -1
+    );
+  };
+
   input.addEventListener("keydown", (e) => {
     window.clearTimeout(timer);
     console.log("typing...");
   });
 
   input.addEventListener("keyup", (e) => {
-    const filterItems = (users, userInput, options = option.value) => {
-      return users.filter(
-        (el) =>
-          el[options].toLowerCase().indexOf(userInput.toLowerCase()) !== -1
-      );
-    };
     window.clearTimeout(timer);
-    userInput = e.target.value;
+    userInput = e.target.value.trim();
 
     timer = window.setTimeout(() => {
       let options = option.value;
